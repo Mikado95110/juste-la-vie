@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Juste la vie — par Mikado95</title>
+<meta name="description" content="Juste la vie, l’album de Mikado95 : 24 clips, un voyage musical et une énigme à découvrir.">
+<meta name="author" content="Mikado95">
+<meta property="og:image" content="media/pochette_s.webp">
+<meta property="og:title" content="Juste la vie — par Mikado95">
+<meta property="og:description" content="24 clips, un voyage musical et une énigme à découvrir.">
+<link rel="icon" href="media/pochette_s.webp">
+<script src="config.js?v=20261108"></script>
+<script src="data.js?v=20261108"></script>
+<link rel="stylesheet" href="fonts.css">
+<style>
+:root{--acc:#c9a8ff;--acc2:#7fd4ff;--bg:#06060a;--fg:#f4f2f8;--mut:rgba(244,242,248,.55);--disp:'Unbounded','Bahnschrift','Segoe UI',sans-serif;--txt:'Inter','Segoe UI',sans-serif;--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--fg);font-family:var(--txt);overflow:hidden;-webkit-font-smoothing:antialiased}
+body.idle{cursor:none}
+#scroller{position:fixed;inset:0;overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none;overscroll-behavior:none}
+#scroller::-webkit-scrollbar{display:none}
+section{position:relative;height:100vh;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden}
+/* ---------- couches visuelles ---------- */
+.bg,.vid{position:absolute;inset:-3%;width:106%;height:106%;object-fit:cover;transform:scale(var(--z,1.04)) translate3d(var(--px,0),var(--py,0),0);transition:opacity 1.2s var(--ease),filter 1s;will-change:transform}
+.vid{opacity:0;inset:0;width:100%;height:100%;transform:none}
+/* arrivée sur un titre : la pochette 1 s, puis le clip s'ouvre en iris (anneau de lumière prismatique qui s'élargit) */
+.vid{clip-path:circle(0 at 50% 50%)}
+section.clip-arm .vid,section.clip-on .vid{opacity:1}
+section.clip-on .vid{clip-path:circle(90vmax at 50% 50%);transition:clip-path 1.15s cubic-bezier(.75,0,.2,1)}
+section.clip-on .bg{opacity:0;transition:opacity .9s .45s}
+.iris{position:absolute;left:50%;top:50%;width:0;height:0;border-radius:50%;pointer-events:none;opacity:0;transform:translate(-50%,-50%);
+  box-shadow:0 0 0 2px rgba(255,255,255,.95),0 0 26px 6px rgba(255,255,255,.55),0 0 70px 22px var(--acc),inset 0 0 70px 14px var(--acc2)}
+section.clip-on .iris{animation:iris 1.15s cubic-bezier(.75,0,.2,1) forwards}
+@keyframes iris{0%{width:0;height:0;opacity:1;filter:hue-rotate(0deg)}80%{opacity:1}100%{width:180vmax;height:180vmax;opacity:0;filter:hue-rotate(90deg)}}
+section.clip-on .flashc{animation:flashc .6s ease-out}
+.flashc{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.55),transparent 45%)}
+@keyframes flashc{0%{opacity:0}18%{opacity:1}100%{opacity:0}}
+/* écrans d'ordinateur (ultrawide compris) : le clip entier, jamais recadré ; autour, un fond flou tiré du clip */
+.vidbg,.bgfl{display:none}
+@media (min-aspect-ratio: 4/3){.vid,.bg{object-fit:contain}section.clip-on{background:#000}
+ .bgfl{display:block;position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;filter:blur(30px) brightness(.58) saturate(1.3);transition:opacity 1.2s var(--ease)}
+ section.clip-on .bgfl{opacity:0;transition:opacity .9s .45s}
+ .vidbg{display:block;position:absolute;inset:-6%;width:112%;height:112%;filter:blur(30px) brightness(.62) saturate(1.35);opacity:0;transition:opacity 1.2s var(--ease)}
+ section.clip-on .vidbg{opacity:1}}
+.veil{position:absolute;inset:0;background:radial-gradient(120% 90% at 15% 85%,rgba(6,6,10,.82),transparent 55%),linear-gradient(180deg,rgba(6,6,10,.35),transparent 22%,transparent 60%,rgba(6,6,10,.75));pointer-events:none;transition:opacity 1s}
+section.clip-on .veil{opacity:.35}
+/* ---------- intro ---------- */
+#intro{display:grid;place-items:center;background:#040406}
+#intro .bg{filter:blur(40px) brightness(.45) saturate(1.3);inset:-10%;width:120%;height:120%}
+.hero{position:relative;display:grid;justify-items:center;gap:4.5vh;z-index:2;perspective:1400px}
+.cover{width:min(52vh,78vw);aspect-ratio:1;border-radius:6px;background:center/cover;box-shadow:0 40px 120px -20px rgba(0,0,0,.9),0 0 90px -10px color-mix(in srgb,var(--acc) 45%,transparent);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s var(--ease);position:relative;overflow:hidden}
+.cover::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.28) 46%,transparent 58%);background-size:260% 100%;animation:shine 6s var(--ease) infinite}
+@keyframes shine{0%{background-position:130% 0}60%,100%{background-position:-60% 0}}
+.wordmark{font-family:var(--disp);font-weight:200;letter-spacing:.62em;font-size:clamp(20px,3.2vw,46px);padding-left:.62em;text-transform:uppercase;background:linear-gradient(90deg,#fff 0%,var(--acc) 30%,#fff 50%,var(--acc2) 70%,#fff 100%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 9s linear infinite}
+@keyframes flow{to{background-position:-300% 0}}
+.enter{font:500 12px var(--txt);letter-spacing:.42em;text-transform:uppercase;color:var(--mut);display:flex;align-items:center;gap:14px;cursor:pointer;background:none;border:0;padding:12px 6px}
+.enter i{display:block;width:44px;height:1px;background:currentColor;transform-origin:left;animation:pulse 2.4s var(--ease) infinite}
+@keyframes pulse{0%{transform:scaleX(.2);opacity:.3}50%{transform:scaleX(1);opacity:1}100%{transform:scaleX(.2);opacity:.3}}
+.enter:hover{color:#fff}
+.intro-identity{display:grid;justify-items:center;gap:clamp(7px,1.5vh,14px);text-align:center}
+.intro-author{font:400 clamp(9px,.72vw,12px) var(--txt);letter-spacing:.18em;color:rgba(244,242,248,.62);text-shadow:0 2px 14px #000}
+/* ---------- piste ---------- */
+.meta{position:absolute;left:clamp(22px,6vw,110px);bottom:clamp(70px,13vh,150px);z-index:3;max-width:min(78vw,1100px)}
+.num{font-family:var(--disp);font-weight:800;font-size:clamp(70px,13vw,220px);line-height:.8;color:transparent;-webkit-text-stroke:1px color-mix(in srgb,var(--acc) 70%,#fff);opacity:.55;letter-spacing:-.02em;transform:translateY(30px);transition:transform 1.4s var(--ease),opacity 1.4s}
+.title{font-family:var(--disp);font-weight:600;font-size:clamp(30px,5.4vw,96px);line-height:.98;letter-spacing:-.01em;margin-top:.12em;text-shadow:0 10px 60px rgba(0,0,0,.6)}
+.title span{display:inline-block;opacity:0;transform:translateY(.5em) rotateX(-60deg);filter:blur(8px);transition:all .9s var(--ease)}
+.sub{margin-top:22px;font:400 12px var(--txt);letter-spacing:.32em;text-transform:uppercase;color:var(--mut);display:flex;gap:22px;opacity:0;transition:opacity 1s .5s}
+.sub b{font-weight:500;color:var(--acc)}
+section.on .num{transform:none;opacity:.9}
+section.on .title span{opacity:1;transform:none;filter:none}
+section.on .sub{opacity:1}
+.lyr{position:absolute;left:0;right:0;bottom:24vh;text-align:center;z-index:3;font-family:var(--disp);font-weight:300;font-size:clamp(18px,2.6vw,40px);letter-spacing:.06em;text-transform:uppercase;pointer-events:none;text-shadow:0 0 30px color-mix(in srgb,var(--acc) 60%,transparent)}
+.lyr span{display:inline-block;animation:lin .7s var(--ease) both}
+@keyframes lin{from{opacity:0;transform:translateY(12px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+/* ---------- interface minimale ---------- */
+.ui{position:fixed;z-index:20;transition:opacity .8s var(--ease)}
+body.idle .ui{opacity:0}
+#brand{top:26px;left:clamp(22px,6vw,110px);font:300 11px var(--disp);letter-spacing:.5em;text-transform:uppercase;color:var(--mut);cursor:pointer;background:none;border:0}
+#tools{top:20px;right:clamp(18px,3vw,40px);display:flex;gap:6px}
+#tools button{width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.04);color:var(--fg);display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(10px);transition:background .3s}
+#tools button:hover{background:rgba(255,255,255,.14)}
+#tools svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.5}
+#rail{right:clamp(14px,2vw,30px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:7px}
+#rail a{display:block;width:14px;height:2px;background:rgba(255,255,255,.22);transition:all .4s var(--ease);position:relative}
+#rail a.on{width:30px;background:var(--acc)}
+#rail a:hover::after{content:attr(data-t);position:absolute;right:42px;top:-8px;white-space:nowrap;font:400 11px var(--txt);letter-spacing:.2em;text-transform:uppercase;color:#fff}
+#bar{left:0;right:0;bottom:0;height:46px;cursor:pointer;display:flex;align-items:flex-end}
+#bar .track{position:relative;width:100%;height:2px;background:rgba(255,255,255,.1);transition:height .3s}
+#bar:hover .track{height:5px}
+#bar .fill{position:absolute;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,var(--acc2),var(--acc));box-shadow:0 0 18px var(--acc)}
+#bar .t{position:absolute;bottom:12px;font:400 11px var(--txt);letter-spacing:.2em;color:var(--mut)}
+#bar .t.l{left:clamp(22px,6vw,110px)}#bar .t.r{right:clamp(22px,3vw,40px)}
+#state{position:fixed;inset:0;display:grid;place-items:center;z-index:15;pointer-events:none}
+#state i{width:90px;height:90px;border-radius:50%;background:rgba(0,0,0,.35);backdrop-filter:blur(8px);display:grid;place-items:center;opacity:0;transform:scale(.7);transition:all .5s var(--ease)}
+#state i.show{opacity:1;transform:none}
+#state svg{width:30px;height:30px;fill:#fff}
+canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;mix-blend-mode:screen}
+/* ---------- mosaïque ---------- */
+#grid{position:fixed;inset:0;z-index:30;background:rgba(5,5,9,.86);backdrop-filter:blur(26px);display:grid;grid-template-columns:repeat(auto-fill,minmax(min(42vw,190px),1fr));gap:14px;padding:90px clamp(18px,6vw,110px) 60px;overflow:auto;opacity:0;pointer-events:none;transition:opacity .6s var(--ease)}
+#grid.open{opacity:1;pointer-events:auto}
+#grid a{position:relative;aspect-ratio:1;border-radius:4px;overflow:hidden;cursor:pointer;background:center/cover;transform:translateY(20px);opacity:0;transition:transform .7s var(--ease),opacity .7s,box-shadow .4s}
+#grid.open a{transform:none;opacity:1}
+#grid a:hover{box-shadow:0 0 0 1px var(--acc),0 20px 60px -10px rgba(0,0,0,.8)}
+#grid a span{position:absolute;left:10px;right:10px;bottom:9px;font:500 11px var(--txt);letter-spacing:.14em;text-transform:uppercase;text-shadow:0 2px 12px #000}
+#grid a em{position:absolute;top:8px;left:10px;font:600 13px var(--disp);font-style:normal;opacity:.75}
+#grid a.cl::before{content:'CLIP';position:absolute;top:9px;right:9px;font:600 9px var(--txt);letter-spacing:.2em;padding:3px 6px;border:1px solid rgba(255,255,255,.6);border-radius:2px}
+#fin{display:grid;place-items:center;text-align:center}
+#fin .wordmark{font-size:clamp(16px,2.2vw,32px)}
+#fin p{margin-top:18px;font:300 12px var(--txt);letter-spacing:.4em;text-transform:uppercase;color:var(--mut)}
+@media (max-width:700px){#rail{display:none}.meta{bottom:90px}.sub{flex-wrap:wrap;gap:10px 18px}}
+/* ultrawide : le texte se cale en bas à gauche de l'image 16:9 centrée (et non au bord de l'écran), tailles relatives à l'image */
+@media (min-aspect-ratio: 16/9){
+  :root{--cw:min(100vw,calc(100vh * 16 / 9));--cx:calc((100vw - var(--cw)) / 2)}
+  .meta{left:calc(var(--cx) + clamp(22px,calc(var(--cw) * .06),110px));max-width:min(calc(var(--cw) * .78),1100px)}
+  .num{font-size:clamp(70px,calc(var(--cw) * .13),220px)}
+  .title{font-size:clamp(30px,calc(var(--cw) * .054),96px)}
+  .lyr{left:var(--cx);right:var(--cx);font-size:clamp(18px,calc(var(--cw) * .026),40px)}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<link rel="stylesheet" href="player.css?v=20261108">
+<link rel="stylesheet" href="premium-fx.css?v=20261108">
+<link rel="stylesheet" href="secret.css?v=20261108">
+</head>
+<body>
+<canvas id="fx"></canvas>
+<main id="scroller">
+  <section id="intro">
+    <img class="bg" alt="" src="media/album-swirl.webp">
+    <div class="hero">
+      <div class="cover" id="cover" style="background-image:url(media/album-swirl.webp)"></div>
+      <div class="intro-identity">
+        <h1 class="wordmark">Juste la vie</h1>
+        <p class="intro-author">par Mikado95</p>
+      </div>
+      <button class="enter" id="enter"><i></i><span id="enterT">Entrer</span><i></i></button>
+    </div>
+  </section>
+</main>
+<button class="ui" id="brand" title="Début">Juste la vie</button>
+<div class="ui" id="tools">
+  <button id="bGrid" title="Tous les titres (G)"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></button>
+  <button id="bPip" title="Clip en vidéo flottante" aria-label="Clip en vidéo flottante"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><rect x="11" y="11" width="8" height="7" rx="1"/></svg></button>
+  <button id="bFull" title="Plein écran (F)"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+</div>
+<nav class="ui" id="rail" aria-label="Choisir un morceau"></nav>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<div class="ui" id="bar"><div class="track"><div class="fill" id="fill"></div></div><span class="t l" id="tl"></span><span class="t r" id="tr"></span></div>
+<div id="state"><i id="stIcon"><svg viewBox="0 0 24 24" id="stSvg"><path d="M8 5v14l11-7z"/></svg></i></div>
+<div id="grid"></div>
+<script src="app.js?v=20261108"></script>
+<script src="premium-fx.js?v=20261108"></script>
+<script src="secret-config.js"></script>
+<script src="apk-manifest.js?v=20261108"></script>
+<script src="secret.js?v=20261108"></script>
+</body>
+</html>
