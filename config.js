@@ -12,5 +12,5 @@
    ============================================================================ */
 window.JLV_CONFIG = {
   clips: 'https://github.com/Mikado95110/juste-la-vie/releases/download/clips/',
-  apk: ''
+  apk: 'https://archive.org/download/juste-la-vie-mikado95/Juste-la-vie.apk'
 };
